@@ -1,2 +1,1 @@
-# med-recipes
-MED Recipes
+# MED Recipes
