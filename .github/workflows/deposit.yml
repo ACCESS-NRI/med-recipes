@@ -1,4 +1,4 @@
-name: Deposit paper Only
+name: Deposit Paper Only
 on:
   workflow_dispatch:
     inputs:
@@ -52,22 +52,22 @@ jobs:
           jats_path: ${{ steps.generate-files.outputs.jats_path}}
           crossref_path: ${{ steps.generate-files.outputs.crossref_path}}
           validation_mode: strict
-      - name: Create and Merge Pull Request
-        id: pull-request
-        uses: xuanxu/deposit-pull-request-action@main
-        with:
-          papers_repo: ACCESS-NRI/med-recipes
-          papers_repo_main_branch: main
-          branch_prefix: medportal
-          issue_id: ${{ github.event.inputs.issue_id }}
-          bot_token: ${{ secrets.BOT_TOKEN }}
-          mode: deposit
-      - name: Deposit with Crossref
-        uses: xuanxu/deposit-with-crossref-action@main
-        with:
-          crossref_filepath: ${{ steps.generate-files.outputs.crossref_path}}
-          crossref_username: ${{ secrets.CROSSREF_USERNAME }}
-          crossref_password: ${{ secrets.CROSSREF_PASSWORD }}
+    #   - name: Create and Merge Pull Request
+    #     id: pull-request
+    #     uses: xuanxu/deposit-pull-request-action@main
+    #     with:
+    #       papers_repo: ACCESS-NRI/med-recipes
+    #       papers_repo_main_branch: main
+    #       branch_prefix: medportal
+    #       issue_id: ${{ github.event.inputs.issue_id }}
+    #       bot_token: ${{ secrets.BOT_TOKEN }}
+    #       mode: deposit
+    #   - name: Deposit with Crossref
+    #     uses: xuanxu/deposit-with-crossref-action@main
+    #     with:
+    #       crossref_filepath: ${{ steps.generate-files.outputs.crossref_path}}
+    #       crossref_username: ${{ secrets.CROSSREF_USERNAME }}
+    #       crossref_password: ${{ secrets.CROSSREF_PASSWORD }}
       - name: Deposit with JOSS
         id: oj-deposit
         uses: ACCESS-NRI/med-deposit-with-medportal-action@main
