@@ -1,4 +1,4 @@
-name: Accept paper
+name: Deposit paper Only
 on:
   workflow_dispatch:
     inputs:
