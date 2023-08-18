@@ -56,7 +56,7 @@ jobs:
         id: pull-request
         uses: xuanxu/deposit-pull-request-action@main
         with:
-          papers_repo: ACCESS-NRI/med-recipes/
+          papers_repo: ACCESS-NRI/med-recipes
           papers_repo_main_branch: main
           branch_prefix: medportal
           issue_id: ${{ github.event.inputs.issue_id }}
