@@ -72,7 +72,7 @@ jobs:
         id: oj-deposit
         uses: ACCESS-NRI/med-deposit-with-medportal-action@main
         with:
-          journal_alias: joss
+          #journal_alias: joss
           journal_secret: ${{ secrets.JOSS_SECRET }}
           issue_id: ${{ github.event.inputs.issue_id }}
           paper_path: ${{ steps.generate-files.outputs.paper_file_path}}
