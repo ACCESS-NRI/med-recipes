@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.2 20190208//EN"
+                  "JATS-publishing1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+<front>
+<journal-meta>
+<journal-id></journal-id>
+<journal-title-group>
+<journal-title>ACCESS-NRI MED Portal</journal-title>
+<abbrev-journal-title>JOSS</abbrev-journal-title>
+</journal-title-group>
+<issn publication-format="electronic">2475-9066</issn>
+<publisher>
+<publisher-name>Open Journals</publisher-name>
+</publisher>
+</journal-meta>
+<article-meta>
+<article-id pub-id-type="publisher-id">92</article-id>
+<article-id pub-id-type="doi">10.21105/medportal.00092</article-id>
+<title-group>
+<article-title>Introduction to the ACCESS-NRI Intake
+catalog</article-title>
+</title-group>
+<contrib-group>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0003-3271-6874</contrib-id>
+<name>
+<surname>Squire</surname>
+<given-names>Dougal</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<contrib contrib-type="author">
+<contrib-id contrib-id-type="orcid">https://orcid.org/0000-0002-2207-6837</contrib-id>
+<name>
+<surname>Beucher</surname>
+<given-names>Romain</given-names>
+</name>
+<xref ref-type="aff" rid="aff-1"/>
+</contrib>
+<aff id="aff-1">
+<institution-wrap>
+<institution>Australian Earth System Simulator (ACCESS-NRI),Canberra,
+Australia</institution>
+</institution-wrap>
+</aff>
+</contrib-group>
+<pub-date date-type="pub" publication-format="electronic" iso-8601-date="2023-09-21">
+<day>21</day>
+<month>9</month>
+<year>2023</year>
+</pub-date>
+<volume>1</volume>
+<issue>5</issue>
+<fpage>92</fpage>
+<permissions>
+<copyright-statement>Authors of papers retain copyright and release the
+work under a Creative Commons Attribution 4.0 International License (CC
+BY 4.0)</copyright-statement>
+<copyright-year>2022</copyright-year>
+<copyright-holder>The article authors</copyright-holder>
+<license license-type="open-access" xlink:href="https://creativecommons.org/licenses/by/4.0/">
+<license-p>Authors of papers retain copyright and release the work under
+a Creative Commons Attribution 4.0 International License (CC BY
+4.0)</license-p>
+</license>
+</permissions>
+<kwd-group kwd-group-type="author">
+<kwd>Python</kwd>
+<kwd>intake</kwd>
+<kwd>indexing</kwd>
+<kwd>data</kwd>
+</kwd-group>
+</article-meta>
+</front>
+<body>
+<sec id="summary">
+  <title>Summary</title>
+  <p>The ACCESS-NRI catalog is essentially a table of climate data
+  products that exist on Gadi. Each entry in the table corresponds to a
+  different product, and the columns contain attributes associated with
+  each product–things like the models, frequencies and variables
+  available. Users can search on the attributes to find the products
+  that might be useful to them. For example, a user might want to know
+  which data products contain variables X, Y and Z at monthly frequency.
+  The ACCESS-NRI catalog enables users to find products that satisfy
+  their query and to subsequently load their data without having to know
+  the location and structure of the underlying files.</p>
+</sec>
+<sec id="statement-of-need">
+  <title>Statement of need</title>
+  <p>The ACCESS-NRI catalog provides a catalog of <italic>Intake
+  sources</italic> and associated metadata.</p>
+  <p>.. topic:: Wait, what are “Intake sources”?</p>
+  <p>“Intake” is a Python package that provides a general interface for
+  loading data in Python. Intake provides a set of data loaders (called
+  “drivers”) that allow users to load a wide range of data formats into
+  familiar Python data structures (e.g. a pandas dataframe or xarray
+  Dataset) using the exact same code. Some drivers are built into
+  Intake, and some are provided by other “plugin” packages.
+  Documentation of the Intake package can be found
+  <monospace>here &lt;https://intake.readthedocs.io/en/latest/index.html&gt;</monospace>_
+  and a list of available Intake drivers can be found
+  <monospace>here &lt;https://intake.readthedocs.io/en/latest/plugin-directory.html&gt;</monospace>_.</p>
+  <p>“Intake sources” describe data that can be loaded using an Intake
+  driver. For example, an Intake source might describe a simple csv file
+  to be opened using the inbuilt Intake “csv” driver, or it might
+  describe a set of netcdf files to be opened using the plugin
+  <monospace>Intake-ESM &lt;https://intake-esm.readthedocs.io/en/stable/&gt;</monospace>_
+  “esm_datastore” driver. In fact, the ACCESS-NRI catalog itself is a
+  type of Intake source that uses the plugin
+  <monospace>Intake-dataframe-catalog &lt;https://intake-dataframe-catalog.readthedocs.io/en/latest/?badge=latest&gt;</monospace>_
+  “df_catalog” driver.</p>
+  <p>The entries in the ACCESS-NRI catalog are <italic>Intake-ESM
+  datastores</italic> for climate data products that exist on Gadi.</p>
+  <p>.. topic:: Wait, what are “Intake-ESM datastores”?</p>
+  <p>Intake-ESM datastores are a type of Intake source that describes a
+  climate data product comprising many files (e.g. netcdf files). Users
+  can search across metadata associated with each file (e.g.  a variable
+  name) and open contiguous files into xarray Datasets for subsequent
+  analysis. For example, NCI provides Intake-ESM datastores for the
+  CMIP5 and CMIP6 data collections available on Gadi. In
+  <monospace>their documentation &lt;https://opus.nci.org.au/pages/viewpage.action?pageId=213713098&gt;</monospace>_
+  they demonstrate how to execute a search across these datastores to
+  find and open a few datasets.</p>
+  <p>Intake-ESM datastores are often also referred to as Intake-ESM
+  “catalogs”. In this sense, the ACCESS-NRI catalog can be though of as
+  providing a catalog of catalogs. To try and avoid confusion in these
+  docs, we will use the term “datastore” instead of “catalog” when
+  referring to Intake-ESM.</p>
+  <p>.. note:: The CMIP5 and CMIP6 Intake-ESM datastores generated by
+  NCI are available as entries in the ACCESS-NRI catalog.</p>
+  <p>A set of core metadata attributes are associated with each entry in
+  the ACCESS-NRI catalog. At the moment these include:</p>
+  <list list-type="bullet">
+    <list-item>
+      <p>The name of the data product</p>
+    </list-item>
+    <list-item>
+      <p>A short description of the data product</p>
+    </list-item>
+    <list-item>
+      <p>The model(s) used</p>
+    </list-item>
+    <list-item>
+      <p>The realm(s) available</p>
+    </list-item>
+    <list-item>
+      <p>The frequency(/ies) available</p>
+    </list-item>
+    <list-item>
+      <p>The variable(s) available</p>
+    </list-item>
+  </list>
+  <p>A simple search API allows users to filter the entries in the
+  catalog based on these metadata attributes. The idea is that users
+  will:</p>
+  <list list-type="order">
+    <list-item>
+      <p>search the ACCESS-NRI catalog for data products, e.g. products
+      containing the models, variables etc that are of interest to
+      them.</p>
+    </list-item>
+    <list-item>
+      <p>open the Intake-ESM datastore(s) for the product(s) of
+      interest.</p>
+    </list-item>
+    <list-item>
+      <p>search the Intake-ESM datastore(s) for the datasets within each
+      product that are of interest to them. A “dataset” here is a set of
+      files that can be readily opened and combined for analysis.</p>
+    </list-item>
+    <list-item>
+      <p>open the datasets of interest as xarray Dataset(s).</p>
+    </list-item>
+    <list-item>
+      <p>perform some analysis on the xarray Dataset(s).</p>
+    </list-item>
+  </list>
+</sec>
+<sec id="citations">
+  <title>Citations</title>
+  <p>Citations to entries in paper.bib should be in
+  <ext-link ext-link-type="uri" xlink:href="http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">rMarkdown</ext-link>
+  format.</p>
+  <p>If you want to cite a software repository URL (e.g. something on
+  GitHub without a preferred citation) then you can do it with the
+  example BibTeX entry below for Banihirwe et al.
+  (<xref alt="2023" rid="ref-intakeesm2023" ref-type="bibr">2023</xref>).</p>
+  <p>For a quick reference, the following citation commands can be
+  used:</p>
+  <list list-type="bullet">
+    <list-item>
+      <p>Banihirwe et al.
+      (<xref alt="2023" rid="ref-intakeesm2023" ref-type="bibr">2023</xref>)
+      -&gt; “Author et al. (2001)”</p>
+    </list-item>
+    <list-item>
+      <p>(<xref alt="Banihirwe et al., 2023" rid="ref-intakeesm2023" ref-type="bibr">Banihirwe
+      et al., 2023</xref>) -&gt; “(Author et al., 2001)”</p>
+    </list-item>
+    <list-item>
+      <p>[Banihirwe et al.
+      (<xref alt="2023" rid="ref-intakeesm2023" ref-type="bibr">2023</xref>);
+      Banihirwe et al.
+      (<xref alt="2022" rid="ref-intakeesm2022" ref-type="bibr">2022</xref>);
+      rocklin2015dask] -&gt; “(Author1 et al., 2001; Author2 et al.,
+      2002)”</p>
+    </list-item>
+  </list>
+</sec>
+<sec id="figures">
+  <title>Figures</title>
+  <p>Figures can be included like this:</p>
+  <fig>
+    <caption><p>Catalog
+    flow<styled-content id="fig_catalog_flow"></styled-content></p></caption>
+    <graphic mimetype="image" mime-subtype="svg+xml" xlink:href="media/figures/catalog_flow.svg" />
+  </fig>
+  <p>and referenced from text using
+  <xref alt="[fig_catalog_flow]" rid="fig_catalog_flow">[fig_catalog_flow]</xref>.</p>
+  <p>Figure sizes can be customized by adding an optional second
+  parameter:</p>
+  <fig>
+    <caption><p>Catalog flow</p></caption>
+    <graphic mimetype="image" mime-subtype="svg+xml" xlink:href="media/figures/catalog_flow.svg" />
+  </fig>
+</sec>
+<sec id="acknowledgements">
+  <title>Acknowledgements</title>
+  <p>This work has been supported by ACCESS-NRI. This research was
+  undertaken with the assistance of resources from the National
+  Computational Infrastructure (NCI Australia), an NCRIS enabled
+  capability supported by the Australian Government.</p>
+</sec>
+</body>
+<back>
+<ref-list>
+  <ref id="ref-intakeesm2023">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Banihirwe</surname><given-names>Anderson</given-names></name>
+        <name><surname>Long</surname><given-names>Matthew</given-names></name>
+        <name><surname>bonnland</surname></name>
+        <name><surname>Grover</surname><given-names>Max</given-names></name>
+        <name><surname>Kent</surname><given-names>Julia</given-names></name>
+        <name><surname>Bourgault</surname><given-names>Pascal</given-names></name>
+        <name><surname>Squire</surname><given-names>Dougie</given-names></name>
+        <name><surname>Busecke</surname><given-names>Julius</given-names></name>
+        <name><surname>Spring</surname><given-names>Aaron</given-names></name>
+        <name><surname>Schulz</surname><given-names>Hauke</given-names></name>
+        <name><surname>Paul</surname><given-names>Kevin</given-names></name>
+        <name><surname>RondeauG</surname></name>
+        <name><surname>Kölling</surname><given-names>Tobias</given-names></name>
+      </person-group>
+      <article-title>Intake/intake-esm: v2023.07.07</article-title>
+      <publisher-name>Zenodo</publisher-name>
+      <year iso-8601-date="2023-07">2023</year><month>07</month>
+      <uri>https://doi.org/10.5281/zenodo.8124292</uri>
+      <pub-id pub-id-type="doi">10.5281/zenodo.8124292</pub-id>
+    </element-citation>
+  </ref>
+  <ref id="ref-intakeesm2022">
+    <element-citation publication-type="article-journal">
+      <person-group person-group-type="author">
+        <name><surname>Banihirwe</surname><given-names>Anderson</given-names></name>
+        <name><surname>Long</surname><given-names>Matthew</given-names></name>
+        <name><surname>bonnland</surname></name>
+        <name><surname>Kent</surname><given-names>Julia</given-names></name>
+        <name><surname>Grover</surname><given-names>Max</given-names></name>
+        <name><surname>Bourgault</surname><given-names>Pascal</given-names></name>
+        <name><surname>Spring</surname><given-names>Aaron</given-names></name>
+        <name><surname>Busecke</surname><given-names>Julius</given-names></name>
+        <name><surname>Paul</surname><given-names>Kevin</given-names></name>
+        <name><surname>RondeauG</surname></name>
+        <name><surname>Kölling</surname><given-names>Tobias</given-names></name>
+      </person-group>
+      <article-title>Intake/intake-esm: v2022.9.18</article-title>
+      <publisher-name>Zenodo</publisher-name>
+      <year iso-8601-date="2022-09">2022</year><month>09</month>
+      <uri>https://doi.org/10.5281/zenodo.7089684</uri>
+      <pub-id pub-id-type="doi">10.5281/zenodo.7089684</pub-id>
+    </element-citation>
+  </ref>
+</ref-list>
+</back>
+</article>
